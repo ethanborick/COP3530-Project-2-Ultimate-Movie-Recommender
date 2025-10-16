@@ -3,6 +3,7 @@
 using namespace std;
 
 struct MovieNode {
+    int movieID;
     int rating;
     int genres[19];
     /*

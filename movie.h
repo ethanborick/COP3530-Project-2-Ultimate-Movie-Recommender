@@ -3,6 +3,8 @@
 using namespace std;
 
 struct MovieNode {
+    string name;
+    int movieID;
     int rating;
     vector<int> genres;
     /*

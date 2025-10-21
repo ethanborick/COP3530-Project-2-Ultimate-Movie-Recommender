@@ -8,13 +8,14 @@ using namespace std;
 struct MovieNode {
     string name;
     int movieID;
-    double rating;
+    double total_rating = 0;
+    int rating_count = 0;
+    double avg_rating;
     vector<int> genres;
 
-    MovieNode(string n, int id, double r, string genre_string) {
+    MovieNode(string n, int id, string genre_string) {
         name = n;
         movieID = id;
-        rating = r;
         map<string, int> map = {
                 {"Action", 0}, {"Adventure", 1}, {"Animation", 2},
                 {"Children", 3}, {"Comedy", 4}, {"Crime", 5},

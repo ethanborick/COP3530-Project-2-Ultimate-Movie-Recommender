@@ -1,18 +1,35 @@
 #pragma once
 #include <iostream>
+#include <fstream>
+#include <sstream>
+#include <map>
 using namespace std;
 
 struct MovieNode {
     string name;
     int movieID;
-    int rating;
+    double rating;
     vector<int> genres;
-    /*
-    0 = Action, 1 = Adventure, 2 = Animation, 3 = Children, 4 =Comedy, 5 = Crime
-    6 = Documentary, 7 = Drama, 8 = Fantasy, 9 = Film-Noir, 10 = Horror, 11 = IMAX
-    12 = Musical, 13 = Mystery, 14 = Romance, 15 = Sci-Fi, 16 = Thriller, 17 = War
-    18 = Western
-     */
+
+    MovieNode(string n, int id, double r, string genre_string) {
+        name = n;
+        movieID = id;
+        rating = r;
+        map<string, int> map = {
+                {"Action", 0}, {"Adventure", 1}, {"Animation", 2},
+                {"Children", 3}, {"Comedy", 4}, {"Crime", 5},
+                {"Documentary", 6}, {"Drama", 7}, {"Fantasy", 8},
+                {"Film-Noir", 9}, {"Horror", 10}, {"IMAX", 11},
+                {"Musical", 12}, {"Mystery", 13}, {"Romance", 14},
+                {"Sci-Fi", 15}, {"Thriller", 16}, {"War", 17},
+                {"Western", 18}
+        };
+        istringstream stream(genre_string);
+        string genre;
+        while (getline(stream, genre, '|')) {
+            genres.push_back(map[genre]);
+        }
+    }
 };
 
 class MovieGraph {

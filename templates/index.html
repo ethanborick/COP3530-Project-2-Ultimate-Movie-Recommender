@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>✧-Ultimate Movie Recommender-✧</title>
+    <style>
+      body {
+        font-family: Arial, sans-serif;
+        max-width: 600px;
+        margin: 50px auto;
+        background: #f9f9f9;
+        padding: 20px;
+        border-radius: 12px;
+        box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+      }
+      input, button {
+        padding: 10px;
+        font-size: 1rem;
+      }
+      pre {
+        background: #fff;
+        border: 1px solid #ccc;
+        padding: 10px;
+        white-space: pre-wrap;
+        border-radius: 8px;
+      }
+    </style>
+  </head>
+  <body>
+    <h2>Run the C++ Program</h2>
+    <form method="POST">
+      <input name="user_input" placeholder="Enter something..." required>
+      <button type="submit">Run</button>
+    </form>
+
+    {% if output %}
+    <h3>Program Output:</h3>
+    <pre>{{ output }}</pre>
+    {% endif %}
+  </body>
+</html>

@@ -1,11 +1,14 @@
 #include <iostream>
-#include <fstream>
-#include <sstream>
-#include <map>
-#include "movie.h"
+#include <string>
+//#include <fstream>
+//#include <sstream>
+//#include <map>
+//#include "movie.h"
+
 using namespace std;
 
 int main() {
+    /*
     ifstream file("../ml-latest-small/moviedata.csv");
     string line;
     map<string, MovieNode*> rating_counts;
@@ -24,7 +27,12 @@ int main() {
             rating_counts[name]->total_rating += stod(rating);
         }
     }
+    */
     // loop through the map and calculate each movies average rating
     // loop through the map and insert each movie node into the graph
+
+    string input;
+    getline(cin, input); // Read input from standard input
+    cout << "Hello, " << input << "! This is output from the C++ program." << endl;
     return 0;
 }

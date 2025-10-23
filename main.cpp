@@ -7,7 +7,7 @@
 
 using namespace std;
 
-int main() {
+int main(int argc, char* argv[]) {
     /*
     ifstream file("../ml-latest-small/moviedata.csv");
     string line;
@@ -31,8 +31,13 @@ int main() {
     // loop through the map and calculate each movies average rating
     // loop through the map and insert each movie node into the graph
 
-    string input;
-    getline(cin, input); // Read input from standard input
-    cout << "Hello, " << input << "! This is output from the C++ program." << endl;
+    string input = argv[1];
+    string traversal = argv[2];
+
+    for (int i = 1; i < 11; i++) {
+        cout << i << ".) " << input << endl;
+        cout << "   Genre: genre" << endl;
+        cout << "   Average Rating: 00%" << endl;
+    }
     return 0;
 }

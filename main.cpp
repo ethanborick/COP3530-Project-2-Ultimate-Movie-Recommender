@@ -21,11 +21,14 @@ int main(int argc, char* argv[]) {
         getline(stream, rating, ',');
         if (rating_counts.find(name) == rating_counts.end()) {
             rating_counts[name] = new MovieNode(name, stoi(id), genres);
+
         }
-        else {
-            rating_counts[name]->rating_count++;
-            rating_counts[name]->total_rating += stod(rating);
-        }
+        rating_counts[name]->rating_count++;
+        rating_counts[name]->total_rating += stod(rating);
+    }
+    for (auto it = rating_counts.begin(); it != rating_counts.end(); it++) {
+        MovieNode* movie = it->second;
+        movie->avg_rating = movie->total_rating / double(movie->rating_count);
     }
     */
     // loop through the map and calculate each movies average rating

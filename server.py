@@ -8,7 +8,7 @@ app.secret_key = "wowAkey"
 @app.route("/", methods=["GET", "POST"])
 def home():
     output = ""
-    traversal = session.get("traversal", "breadth")  
+    traversal = session.get("traversal", "breadth")
 
     if request.method == "POST":
         action = request.form.get("action")

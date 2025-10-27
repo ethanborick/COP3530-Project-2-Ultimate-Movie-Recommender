@@ -33,7 +33,9 @@ int main(int argc, char* argv[]) {
 
     string input = argv[1];
     string traversal = argv[2];
+    int time = 1;
 
+    cout << "Time taken for " << traversal << ": " << time << endl;
     for (int i = 1; i < 11; i++) {
         cout << i << ".) " << input << endl;
         cout << "   Genre: genre" << endl;

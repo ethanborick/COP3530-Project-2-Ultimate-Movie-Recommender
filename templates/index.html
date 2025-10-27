@@ -1,0 +1,244 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <title>✧-Ultimate Movie Recommender-✧</title>
+  <style>
+    body {
+      margin: 0;
+      line-height: normal;
+      font-family: 'Geist Mono', monospace;
+      overflow: hidden;
+    }
+
+    * {
+      box-sizing: border-box;
+    }
+
+    .screen1-color-2 {
+      width: 100vw;
+      height: 100vh;
+      background-color: #a09cb0;
+      overflow: hidden;
+      display: flex;
+      align-items: stretch;
+      justify-content: space-between;
+      padding: 30px;
+      box-sizing: border-box;
+      gap: 30px;
+      color: #2b2d42;
+    }
+
+    .right {
+      width: 400px;
+      display: flex;
+      flex-direction: column;
+      gap: 30px;
+    }
+
+    .top {
+      background-color: #f7f7f9;
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+      padding: 20px;
+      gap: 15px;
+      border-radius: 10px;
+    }
+
+    .title {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      font-size: 32px;
+    }
+
+    .info {
+      margin-top: 2px;
+      margin-bottom: 2px;
+    }
+
+    .screen1-color-2-title {
+      flex: 1;
+      text-align: center;
+      gap: -5px;
+      line-height: 1.1;
+      margin: 0;
+      padding: 0;
+    }
+
+    .title p {
+      margin: 0;
+      padding: 0;
+    }
+
+    .info {
+      font-size: 16px;
+      color: #333;
+    }
+
+    .search {
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+    }
+
+    .search label {
+      font-weight: bold;
+    }
+
+    .search form {
+      display: flex;
+      gap: 8px;
+      align-items: center;
+    }
+
+    .search input {
+      flex: 1;
+      height: 45px;
+      border-radius: 10px;
+      border: 2px solid #a09cb0;
+      padding: 0 12px;
+      font-size: 16px;
+      outline: none;
+    }
+
+    .search input:focus {
+      border-color: #5f5980;
+    }
+
+    .search button {
+      background-color: #5f5980;
+      color: #f7f7f9;
+      border: none;
+      border-radius: 10px;
+      padding: 10px 16px;
+      font-size: 16px;
+      cursor: pointer;
+      transition: 0.2s ease;
+    }
+
+    .search button:hover {
+      background-color: #4a446d;
+    }
+
+    /* Bottom Buttons */
+    .bottom {
+      align-self: stretch;
+      flex: 1;
+      background-color: #f7f7f9;
+      overflow: hidden;
+      display: flex;
+      flex-direction: row;
+      align-items: center;
+      justify-content: space-evenly;
+      gap: 10px;
+      text-align: center;
+      padding: 20px;
+      border-radius: 10px;
+      box-sizing: border-box;
+    }
+
+    .depth {
+      width: 100%;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 10px;
+    }
+
+    .depth-child,
+    .breadth-child {
+      width: 130px;
+      height: 130px;
+      border-radius: 10px;
+      box-sizing: border-box;
+      background-color: #a09cb0;
+      border: 6px solid #f7f7f9;
+      font-family: 'Geist Mono', monospace;
+      color: #f7f7f9;
+      transition: 0.2s ease;
+    }
+
+    .depth-child:hover,
+    .breadth-child:hover {
+      transform: scale(1.05);
+      border: 6px solid #abdae1;
+    }
+
+    /* Left Section */
+    .left {
+      flex: 1;
+      background-color: #f7f7f9;
+      border-radius: 10px;
+      padding: 30px;
+      overflow-y: auto;
+    }
+
+    .recommendations {
+      text-decoration: underline;
+      margin-bottom: 20px;
+      font-size: 28px;
+    }
+
+    pre.output {
+      font-size: 18px;
+      margin-bottom: 6px;
+    }
+  </style>
+</head>
+
+<body>
+  <div class="screen1-color-2">
+    <!-- RIGHT SIDE -->
+    <div class="right">
+      <div class="top">
+        <div class="title">
+          <div>✧</div>
+          <div class="screen1-color-2-title">
+            <p class="ultimate-movie">Ultimate Movie</p>
+            <p class="ultimate-movie">Recommender</p>
+          </div>
+          <div>✧</div>
+        </div>
+
+        <div class="info">By Sara Adams, Ethan Borick, & Matilde Gillia</div>
+        <div class="info">
+          Ever struggled with finding a good movie? Look no further! Type in a movie you want recommendations based off
+          of and enjoy!
+        </div>
+
+        <!-- Working Search Input -->
+        <div class="search">
+          <label for="user_input">Search Movie</label>
+          <form method="POST">
+            <input type="text" name="user_input" id="user_input" placeholder="Enter a movie..." required>
+            <button type="submit" name="action" value="search">Search</button>
+          </form>
+        </div>
+      </div>
+
+      <div class="bottom">
+        <form method="POST">
+          <form method="POST">
+            <input type="hidden" name="user_input" value="{{ user_input }}">
+            <button type="submit" name="action" value="depth" class="depth-child">Depth</button>
+            <button type="submit" name="action" value="breadth" class="breadth-child">Breadth</button>
+          </form>
+        </form>
+      </div>
+    </div>
+
+    <!-- LEFT SIDE -->
+    <div class="left">
+      <div class="recommendations">Recommendations:</div>
+      <div class="movie-list">
+        {% if output %}
+        <pre class="output">{{ output }}</pre>
+        {% endif %}
+      </div>
+    </div>
+  </div>
+</body>
+
+</html>

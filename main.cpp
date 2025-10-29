@@ -8,7 +8,10 @@ using namespace std;
 int main() {
     ifstream file("../ml-latest-small/moviedata.csv");
     string line;
-    map<string, MovieNode*> rating_counts;
+    unordered_map<MovieNode*, int> vertex_to_index;
+    unordered_map<int, MovieNode*> index_to_vertex;
+    unordered_map<string, MovieNode*> rating_counts;
+    int index_counter = 0;
     while (getline(file, line)) {
         stringstream stream(line);
         string id, name, genres, rating;
@@ -17,8 +20,11 @@ int main() {
         getline(stream, genres, ',');
         getline(stream, rating, ',');
         if (rating_counts.find(name) == rating_counts.end()) {
-            rating_counts[name] = new MovieNode(name, stoi(id), genres);
-
+            MovieNode* movie = new MovieNode(name, index_counter, genres);
+            rating_counts[name] = movie;
+            vertex_to_index[movie] = index_counter;
+            index_to_vertex[index_counter] = movie;
+            index_counter++;
         }
         rating_counts[name]->rating_count++;
         rating_counts[name]->total_rating += stod(rating);

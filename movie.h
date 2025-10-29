@@ -7,15 +7,15 @@ using namespace std;
 
 struct MovieNode {
     string name;
-    int movieID;
+    int movie_index;
     double total_rating = 0;
     int rating_count = 0;
     double avg_rating;
     vector<int> genres;
 
-    MovieNode(string n, int id, string genre_string) {
+    MovieNode(string n, int index, string genre_string) {
         name = n;
-        movieID = id;
+        movie_index = index;
         map<string, int> map = {
                 {"Action", 0}, {"Adventure", 1}, {"Animation", 2},
                 {"Children", 3}, {"Comedy", 4}, {"Crime", 5},
@@ -33,6 +33,9 @@ struct MovieNode {
     }
 };
 
-class MovieGraph {
-
+class MovieGraph { // https://edugator.app/courses/2eff7d57-3f4b-4297-ac6c-0bb5ce67348b/lesson/20e56cf4-13ca-4482-a492-26b779ebc746
+    unordered_map<MovieNode*, int> vertex_to_index;
+    unordered_map<int, MovieNode*> index_to_vertex;
+    vector<vector<int>> adjacency_matrix;
+    public:
 };

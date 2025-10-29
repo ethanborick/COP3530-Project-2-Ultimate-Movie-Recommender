@@ -34,8 +34,12 @@ struct MovieNode {
 };
 
 class MovieGraph { // https://edugator.app/courses/2eff7d57-3f4b-4297-ac6c-0bb5ce67348b/lesson/20e56cf4-13ca-4482-a492-26b779ebc746
+    int movie_count;
     unordered_map<MovieNode*, int> vertex_to_index;
     unordered_map<int, MovieNode*> index_to_vertex;
     vector<vector<int>> adjacency_matrix;
     public:
+        MovieGraph(int movie_count) {
+            adjacency_matrix = vector<vector<int>>(movie_count, vector<int>(movie_count, 0));
+        }
 };

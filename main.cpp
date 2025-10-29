@@ -1,11 +1,14 @@
 #include <iostream>
-#include <fstream>
-#include <sstream>
-#include <map>
-#include "movie.h"
+#include <string>
+//#include <fstream>
+//#include <sstream>
+//#include <map>
+//#include "movie.h"
+
 using namespace std;
 
-int main() {
+int main(int argc, char* argv[]) {
+    /*
     ifstream file("../ml-latest-small/moviedata.csv");
     string line;
     unordered_map<MovieNode*, int> vertex_to_index;
@@ -33,6 +36,19 @@ int main() {
         MovieNode* movie = it->second;
         movie->avg_rating = movie->total_rating / double(movie->rating_count);
     }
+    */
+    // loop through the map and calculate each movies average rating
     // loop through the map and insert each movie node into the graph
+
+    string input = argv[1];
+    string traversal = argv[2];
+    int time = 1;
+
+    cout << "Time taken for " << traversal << ": " << time << endl;
+    for (int i = 1; i < 11; i++) {
+        cout << i << ".) " << input << endl;
+        cout << "   Genre: genre" << endl;
+        cout << "   Average Rating: 00%" << endl;
+    }
     return 0;
 }

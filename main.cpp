@@ -3,6 +3,7 @@
 #include <fstream>
 #include <sstream>
 #include <map>
+#include <algorithm>
 #include "movie.h"
 
 using namespace std;
@@ -42,8 +43,8 @@ int main(int argc, char* argv[]) {
         getline(stream, genres, ',');
         getline(stream, rating);
 
-        int movieId = 0;
-        double ratingVal = 0.0;
+        int movieId = stoi(id);
+        double ratingVal = stod(rating);
         if (rating_counts.find(name) == rating_counts.end()) {
             rating_counts[name] = new MovieNode(name, movieId, genres);
         }

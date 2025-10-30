@@ -42,8 +42,8 @@ int main(int argc, char* argv[]) {
         getline(stream, genres, ',');
         getline(stream, rating);
 
-        int movieId;
-        double ratingVal;
+        int movieId = 0;
+        double ratingVal = 0.0;
         if (rating_counts.find(name) == rating_counts.end()) {
             rating_counts[name] = new MovieNode(name, movieId, genres);
         }

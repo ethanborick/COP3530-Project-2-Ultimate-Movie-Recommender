@@ -59,12 +59,12 @@ class MovieGraph {
     // }
 
     public:
-    map<string, vector<pair<string, int>>> graph;
+    map<string, vector<string>> graph;
 
     //undirected graph
     void insertEdge(const string& from, const string& to, int weight) {
-        graph[from].push_back(make_pair(to, weight));
-        graph[to].push_back(make_pair(from, weight));
+        graph[from].push_back(to);
+        graph[to].push_back(from);
     }
 
     void buildGraph(const map<string, MovieNode*>& movies) {
@@ -90,7 +90,7 @@ class MovieGraph {
         for (auto it = graph.begin(); it != graph.end(); ++it, ++i) {
             cout << it->first << " -> ";
             for (int j = 0; j < it->second.size(); j++) {
-                cout << "(" << it->second[j].first << ", " << it->second[j].second << ") ";
+                cout << "(" << it->second[j] << ") ";
             }
             cout << endl;
         }

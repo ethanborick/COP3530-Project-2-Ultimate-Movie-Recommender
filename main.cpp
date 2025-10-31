@@ -56,12 +56,13 @@ int main(int argc, char* argv[]) {
         MovieNode* movie = it->second;
         movie->avg_rating = movie->total_rating / double(movie->rating_count);
     }
-    
+
     MovieGraph graph;
     graph.buildGraph(rating_counts);
-    graph.printGraph();
-    // loop through the map and calculate each movies average rating
-    // loop through the map and insert each movie node into the graph
+    //graph.printGraph();
+    // testing bfs
+    graph.bfs(rating_counts["Toy Story (1995)"], rating_counts["Mission: Impossible (1996)"]);
+
 
     // string input = argv[1];
     // string traversal = argv[2];

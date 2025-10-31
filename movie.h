@@ -6,6 +6,8 @@
 #include <vector>
 #include <iterator>
 #include <ctime>
+#include <unordered_set>
+#include <queue>
 using namespace std;
 
 struct MovieNode {
@@ -14,7 +16,7 @@ struct MovieNode {
     double total_rating = 0;
     int rating_count = 0;
     double avg_rating;
-    vector<int> genres;
+    unordered_set<int> genres;
 
     MovieNode(string n, int index, string genre_string) {
         name = n;
@@ -31,7 +33,7 @@ struct MovieNode {
         istringstream stream(genre_string);
         string genre;
         while (getline(stream, genre, '|')) {
-            genres.push_back(map[genre]);
+            genres.insert(map[genre]);
         }
     }
 };
@@ -59,18 +61,18 @@ class MovieGraph {
     // }
 
     public:
-    map<string, vector<string>> graph;
+    map<string, vector<MovieNode*>> graph;
 
     //undirected graph
-    void insertEdge(const string& from, const string& to, int weight) {
-        graph[from].push_back(to);
-        graph[to].push_back(from);
+    void insertEdge(MovieNode* from, MovieNode* to) {
+        graph[from->name].push_back(to);
+        graph[to->name].push_back(from);
     }
 
     void buildGraph(const map<string, MovieNode*>& movies) {
-        vector<string> titles;
+        vector<MovieNode*> titles;
         for (auto& pair : movies) {
-            titles.push_back(pair.first);
+            titles.push_back(pair.second);
         }
 
         //random edges
@@ -78,9 +80,9 @@ class MovieGraph {
         for (auto& from : titles) {
             int connections = rand() % 3 + 1; //1–3 random connections, keep sparse since using adjacency list
             for (int i = 0; i < connections; i++) {
-                string to = titles[rand() % titles.size()];
+                MovieNode* to = titles[rand() % titles.size()];
                 if (to != from)
-                    insertEdge(from, to, 1); //weight = 1 for all edges: unweighted graph
+                    insertEdge(from, to);
             }
         } 
     }
@@ -90,11 +92,45 @@ class MovieGraph {
         for (auto it = graph.begin(); it != graph.end(); ++it, ++i) {
             cout << it->first << " -> ";
             for (int j = 0; j < it->second.size(); j++) {
-                cout << "(" << it->second[j] << ") ";
+                cout << "(" << it->second[j]->name << ") ";
             }
             cout << endl;
         }
     }
-    // //search functions
-
+    void bfs(MovieNode* target, MovieNode* src) {
+        int counter = 0;
+        int nodes_visited = 0; // testing
+        unordered_set<MovieNode*> visited;
+        queue<MovieNode*> q;
+        visited.insert(src);
+        q.push(src);
+        while (!q.empty()) {
+            nodes_visited++; // testing
+            MovieNode* m = q.front();
+            q.pop();
+            if (m == target) continue;
+            int genres_in_common = 0;
+            for (auto it = m->genres.begin(); it != m->genres.end(); it++) {
+                if (target->genres.count(*it) != 0) {
+                    genres_in_common++;
+                }
+            }
+            double movie_score = m->avg_rating + genres_in_common;
+            if (movie_score >= 8) {
+                cout << m->name << ", " << m->avg_rating << ", " << genres_in_common << endl;
+                counter++;
+                if (counter == 10) {
+                    break;
+                }
+            }
+            vector<MovieNode*> neighbors = graph[m->name];
+            for (MovieNode* p: neighbors) {
+                if (visited.count(p) == 0) {
+                    visited.insert(p);
+                    q.push(p);
+                }
+            }
+        }
+        cout << nodes_visited << endl; // testing
+    }
 };

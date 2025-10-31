@@ -42,7 +42,7 @@ int main(int argc, char* argv[]) {
     for (int i = 1; i < 11; i++) {
         cout << i << ".) " << input << endl;
         cout << "   Genre: genre" << endl;
-        cout << "   Average Rating: 00%" << endl;
+        cout << "   Average Rating: 0.00" << endl;
     }
     return 0;
 }

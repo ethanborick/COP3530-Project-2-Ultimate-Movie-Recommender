@@ -117,7 +117,7 @@ class MovieGraph {
             }
             double movie_score = m->avg_rating + genres_in_common;
             if (movie_score >= 8) {
-                cout << m->name << ", " << m->avg_rating << ", " << genres_in_common << endl;
+                // need to add cout statements to print movie info
                 counter++;
                 if (counter == 10) {
                     break;

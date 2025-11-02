@@ -262,7 +262,7 @@
         const line = lines[i].trim();
         const parts = line.split(",");
 
-        const title = parts[1].trim();
+        const title = parts[1].replace(/^"|"$/g, "").trim();
         if (title.length > 0) {
           const option = document.createElement("option");
           option.value = title;

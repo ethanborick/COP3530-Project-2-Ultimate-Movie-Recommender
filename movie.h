@@ -8,6 +8,7 @@
 #include <ctime>
 #include <unordered_set>
 #include <queue>
+#include <chrono>
 using namespace std;
 
 struct MovieNode {
@@ -107,14 +108,13 @@ class MovieGraph {
         }
     }
     void bfs(MovieNode* target, MovieNode* src) {
+        auto start_time = chrono::high_resolution_clock::now();
         int counter = 0;
-        int nodes_visited = 0; // testing
         unordered_set<MovieNode*> visited;
         queue<MovieNode*> q;
         visited.insert(src);
         q.push(src);
         while (!q.empty()) {
-            nodes_visited++; // testing
             MovieNode* m = q.front();
             q.pop();
             if (m == target) continue;
@@ -126,9 +126,13 @@ class MovieGraph {
             }
             double movie_score = m->avg_rating + genres_in_common;
             if (movie_score >= 8) {
-                // need to add cout statements to print movie info
+                // need to add a way to display on front end
+                cout << m->name << ", " << m->avg_rating
+                     << ", " << genres_in_common << endl;
                 counter++;
                 if (counter == 10) {
+                    auto current_time = chrono::high_resolution_clock::now();
+                    cout << chrono::duration_cast<chrono::milliseconds>(current_time - start_time).count() << endl;
                     break;
                 }
             }
@@ -140,6 +144,41 @@ class MovieGraph {
                 }
             }
         }
-        cout << nodes_visited << endl; // testing
+    }
+    void dfs(MovieNode* target, MovieNode* src) {
+        auto start_time = chrono::high_resolution_clock::now();
+        int counter = 0;
+        unordered_set<MovieNode*> visited;
+        stack<MovieNode*> s;
+        visited.insert(src);
+        s.push(src);
+        while (!s.empty()) {
+            MovieNode* m = s.top();
+            s.pop();
+            if (m == target) continue;
+            int genres_in_common = 0;
+            for (auto it = m->genres.begin(); it != m->genres.end(); it++) {
+                if (target->genres.count(*it) != 0) {
+                    genres_in_common++;
+                }
+            }
+            double movie_score = m->avg_rating + genres_in_common;
+            if (movie_score >= 8) {
+                // need to add a way to display on front end
+                counter++;
+                if (counter == 10) {
+                    auto current_time = chrono::high_resolution_clock::now();
+                    cout << chrono::duration_cast<chrono::milliseconds>(current_time - start_time).count() << endl;
+                    break;
+                }
+            }
+            vector<MovieNode*> neighbors = graph[m->name];
+            for (MovieNode* p: neighbors) {
+                if (visited.count(p) == 0) {
+                    visited.insert(p);
+                    s.push(p);
+                }
+            }
+        }
     }
 };

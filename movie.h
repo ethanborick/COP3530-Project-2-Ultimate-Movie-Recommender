@@ -126,7 +126,7 @@ class MovieGraph {
             }
             double movie_score = m->avg_rating + genres_in_common;
             if (movie_score >= 8) {
-                // need to add cout statements to print movie info
+                // need to add a way to display on front end
                 counter++;
                 if (counter == 10) {
                     break;
@@ -137,6 +137,42 @@ class MovieGraph {
                 if (visited.count(p) == 0) {
                     visited.insert(p);
                     q.push(p);
+                }
+            }
+        }
+        cout << nodes_visited << endl; // testing
+    }
+    void dfs(MovieNode* target, MovieNode* src) {
+        int counter = 0;
+        int nodes_visited = 0; // testing
+        unordered_set<MovieNode*> visited;
+        stack<MovieNode*> s;
+        visited.insert(src);
+        s.push(src);
+        while (!s.empty()) {
+            nodes_visited++; // testing
+            MovieNode* m = s.top();
+            s.pop();
+            if (m == target) continue;
+            int genres_in_common = 0;
+            for (auto it = m->genres.begin(); it != m->genres.end(); it++) {
+                if (target->genres.count(*it) != 0) {
+                    genres_in_common++;
+                }
+            }
+            double movie_score = m->avg_rating + genres_in_common;
+            if (movie_score >= 8) {
+                // need to add a way to display on front end
+                counter++;
+                if (counter == 10) {
+                    break;
+                }
+            }
+            vector<MovieNode*> neighbors = graph[m->name];
+            for (MovieNode* p: neighbors) {
+                if (visited.count(p) == 0) {
+                    visited.insert(p);
+                    s.push(p);
                 }
             }
         }

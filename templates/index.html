@@ -190,7 +190,7 @@
 
 <body>
   <div class="screen1-color-2">
-    <!-- RIGHT SIDE -->
+    <!-- Right -->
     <div class="right">
       <div class="top">
         <div class="title">
@@ -208,11 +208,14 @@
           of and enjoy!
         </div>
 
-        <!-- Working Search Input -->
+        <!-- Search Input -->
         <div class="search">
           <label for="user_input">Search Movie</label>
           <form method="POST">
-            <input type="text" name="user_input" id="user_input" placeholder="Enter a movie..." required>
+            <input type="text" list="movieInput" name="user_input" id="user_input" placeholder="Enter a movie..."
+              required>
+            <datalist id="movieInput">
+            </datalist>
             <button type="submit" name="action" value="search">Search</button>
           </form>
         </div>
@@ -229,7 +232,7 @@
       </div>
     </div>
 
-    <!-- LEFT SIDE -->
+    <!-- Left -->
     <div class="left">
       <div class="recommendations">Recommendations:</div>
       <div class="movie-list">
@@ -239,6 +242,35 @@
       </div>
     </div>
   </div>
+
+  <script>
+    const searchDropdown = document.getElementById("movieInput");
+    const movieList = "/static/ml-latest-small/moviedata2.0.csv";
+
+    fetch(movieList)
+    .then(response => {
+      if (!response.ok) {
+        throw new Error("Error with loading :P");
+      }
+      return response.text();
+    })
+    .then(data => {
+      const lines = data.split("\n");
+      
+      //skip first two lines & spilt
+      for (let i = 2; i < lines.length; i++) {
+        const line = lines[i].trim();
+        const parts = line.split(",");
+
+        const title = parts[1].trim();
+        if (title.length > 0) {
+          const option = document.createElement("option");
+          option.value = title;
+          searchDropdown.appendChild(option);
+        }
+      }
+    });
+  </script>
 </body>
 
 </html>

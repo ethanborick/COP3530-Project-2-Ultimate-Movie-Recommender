@@ -10,7 +10,7 @@ using namespace std;
 
 int main(int argc, char* argv[]) {
 
-    ifstream file("../ml-latest-small/moviedata.csv");
+    ifstream file("ml-latest-small/moviedata.csv");
     if (!file.is_open()) {  //this was for debugging, can probably delete now
         cout << "Error: Could not open moviedata.csv" << endl;
         return 1;

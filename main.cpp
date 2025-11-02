@@ -10,7 +10,7 @@ using namespace std;
 
 int main(int argc, char* argv[]) {
 
-    ifstream file("ml-latest-small/moviedata.csv");
+    ifstream file("static/ml-latest-small/moviedata.csv");
     if (!file.is_open()) {  //this was for debugging, can probably delete now
         cout << "Error: Could not open moviedata.csv" << endl;
         return 1;
@@ -60,20 +60,19 @@ int main(int argc, char* argv[]) {
     MovieGraph graph;
     graph.buildGraph(rating_counts);
     //graph.printGraph();
+
     // testing bfs
-    graph.bfs(rating_counts["Toy Story (1995)"], rating_counts["Mission: Impossible (1996)"]);
-    graph.dfs(rating_counts["Toy Story (1995)"], rating_counts["Mission: Impossible (1996)"]);
+    //graph.bfs(rating_counts["Toy Story (1995)"], rating_counts["Mission: Impossible (1996)"]);
+    //graph.dfs(rating_counts["Toy Story (1995)"], rating_counts["Mission: Impossible (1996)"]);
 
+    //frontend implementation
+    string input = argv[1];
+    string traversal = argv[2];
 
-    // string input = argv[1];
-    // string traversal = argv[2];
-    // int time = 1;
-
-    // cout << "Time taken for " << traversal << ": " << time << endl;
-    // for (int i = 1; i < 11; i++) {
-    //     cout << i << ".) " << input << endl;
-    //     cout << "   Genre: genre" << endl;
-    //     cout << "   Average Rating: 00%" << endl;
-    // }
+    if (traversal == "breadth") {
+        graph.bfs(rating_counts[input], rating_counts["Mission: Impossible (1996)"]);
+    } else if (traversal == "depth") {
+        graph.dfs(rating_counts[input], rating_counts["Mission: Impossible (1996)"]);
+    }
     return 0;
 }

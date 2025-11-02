@@ -3,6 +3,7 @@
 #include <fstream>
 #include <sstream>
 #include <map>
+#include <stack>
 #include <vector>
 #include <iterator>
 #include <ctime>
@@ -12,7 +13,7 @@
 using namespace std;
 
 struct MovieNode {
-    string name;
+    string name, movie_genres;
     int movie_index;
     double total_rating = 0;
     int rating_count = 0;
@@ -22,6 +23,7 @@ struct MovieNode {
     MovieNode(string n, int index, string genre_string) {
         name = n;
         movie_index = index;
+        movie_genres = genre_string;
         map<string, int> map = {
                 {"Action", 0}, {"Adventure", 1}, {"Animation", 2},
                 {"Children", 3}, {"Comedy", 4}, {"Crime", 5},
@@ -125,14 +127,15 @@ class MovieGraph {
                 }
             }
             double movie_score = m->avg_rating + genres_in_common;
-            if (movie_score >= 8) {
+            if (movie_score >= 7) {
                 // need to add a way to display on front end
-                cout << m->name << ", " << m->avg_rating
-                     << ", " << genres_in_common << endl;
                 counter++;
+                cout << counter << ".) " << m->name << endl;
+                cout << "   Genre: " << m->movie_genres << endl;
+                cout << "   Average Rating: " << m->avg_rating << endl;
                 if (counter == 10) {
                     auto current_time = chrono::high_resolution_clock::now();
-                    cout << chrono::duration_cast<chrono::milliseconds>(current_time - start_time).count() << endl;
+                    cout << "\nTime taken for breadth first search: " << chrono::duration_cast<chrono::milliseconds>(current_time - start_time).count() << " milliseconds" << endl;
                     break;
                 }
             }
@@ -163,12 +166,15 @@ class MovieGraph {
                 }
             }
             double movie_score = m->avg_rating + genres_in_common;
-            if (movie_score >= 8) {
+            if (movie_score >= 7) {
                 // need to add a way to display on front end
                 counter++;
+                cout << counter << ".) " << m->name << endl;
+                cout << "   Genre: " << m->movie_genres << endl;
+                cout << "   Average Rating: " << m->avg_rating << endl;
                 if (counter == 10) {
                     auto current_time = chrono::high_resolution_clock::now();
-                    cout << chrono::duration_cast<chrono::milliseconds>(current_time - start_time).count() << endl;
+                    cout << "\nTime taken for depth first search: " << chrono::duration_cast<chrono::milliseconds>(current_time - start_time).count() << " milliseconds" << endl;
                     break;
                 }
             }
@@ -179,6 +185,7 @@ class MovieGraph {
                     s.push(p);
                 }
             }
+            
         }
     }
 };

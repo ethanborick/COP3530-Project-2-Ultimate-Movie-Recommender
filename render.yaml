@@ -7,4 +7,6 @@ services:
       cd src
       g++ -std=c++17 main.cpp -o program
       chmod +x program
-    startCommand: python src/server.py
+    startCommand: |
+      cd src
+      python server.py

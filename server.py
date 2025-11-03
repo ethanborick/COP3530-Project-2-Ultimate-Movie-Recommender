@@ -17,7 +17,7 @@ def home():
         # path to c++
         exe_path = os.path.join(os.path.dirname(__file__), "program")
         if os.name == "nt":
-            exe_path = os.path.join(os.getcwd(), "program.exe")
+            exe_path += ".exe"
 
         # run c++
         if action == "depth":
@@ -27,6 +27,8 @@ def home():
             traversal = "breadth"
             session["traversal"] = traversal
         elif action == "search" and user_input:
+            print("Executable exists:", os.path.exists(exe_path))
+            print("Exe path:", exe_path)
             result = subprocess.run(
                 [exe_path, user_input, traversal],
                 text=True,

@@ -15,9 +15,11 @@ def home():
         user_input = request.form.get("user_input", "")
 
         # path to c++
-        exe_path = os.path.join(os.path.dirname(__file__), "program")
+        exe_path = os.path.join(os.path.dirname(os.path.abspath(__file__)), "program")
         if os.name == "nt":
             exe_path += ".exe"
+        print("Executable exists:", os.path.exists(exe_path))
+        print("Exe path:", exe_path)
 
         # run c++
         if action == "depth":

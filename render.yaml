@@ -4,6 +4,7 @@ services:
     env: python
     buildCommand: |
       pip install -r requirements.txt
+      cd src
       g++ -std=c++17 main.cpp -o program
       chmod +x program
-    startCommand: python server.py
+    startCommand: python src/server.py

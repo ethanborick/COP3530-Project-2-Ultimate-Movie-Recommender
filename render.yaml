@@ -7,4 +7,4 @@ services:
       g++ -std=c++17 src/main.cpp -o src/program
       chmod +x src/program
       ls -l src/
-    startCommand: python src/server.py
+    startCommand: gunicorn src.server:app

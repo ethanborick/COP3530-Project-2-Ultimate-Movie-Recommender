@@ -3,7 +3,7 @@ import subprocess
 import os
 
 app = Flask(__name__)
-app.secret_key = "wowAkey"
+app.secret_key = os.environ.get("SECRET_KEY", "fallback_key_for_local")
 
 @app.route("/", methods=["GET", "POST"])
 def home():
@@ -15,7 +15,7 @@ def home():
         user_input = request.form.get("user_input", "")
 
         # path to c++
-        exe_path = os.path.join(os.path.dirname(os.path.abspath(__file__)), "program")
+        exe_path = os.path.join(os.getcwd(), "program")
         if os.name == "nt":
             exe_path += ".exe"
 

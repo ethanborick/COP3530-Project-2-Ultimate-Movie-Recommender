@@ -244,10 +244,10 @@
   </div>
 
   <script>
-    const searchDropdown = document.getElementById("movieInput");
-    const movieList = "/static/moviedata2.0.csv";
+  const searchDropdown = document.getElementById("movieInput");
+  const movieList = "/static/moviedata2.0.csv";
 
-    fetch(movieList)
+  fetch(movieList)
     .then(response => {
       if (!response.ok) {
         throw new Error("Error with loading :P");
@@ -256,13 +256,12 @@
     })
     .then(data => {
       const lines = data.split("\n");
-      
-      //skip first two lines & spilt
+
       for (let i = 2; i < lines.length; i++) {
         const line = lines[i].trim();
-        const parts = line.split(",");
-
-        const title = parts[1].replace(/^"|"$/g, "").trim();
+        const regex = /(".*?"|[^,]+)(?=\s*,|\s*$)/g;
+        const parts = line.match(regex)?.map(s => s.replace(/^"|"$/g, "").trim());
+        const title = parts[1];
         if (title.length > 0) {
           const option = document.createElement("option");
           option.value = title;
@@ -270,7 +269,7 @@
         }
       }
     });
-  </script>
+</script>
 </body>
 
 </html>

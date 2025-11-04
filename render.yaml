@@ -8,4 +8,4 @@ services:
       chmod +x src/program
       ls -l src/
       echo "Build complete!"
-    startCommand: gunicorn src.server:app
+    startCommand: gunicorn server:app --chdir src

@@ -8,8 +8,4 @@ services:
       chmod +x src/program
       ls -l src/
       echo "Build complete!"
-    startCommand: |
-      export PYTHONPATH=src
-      gunicorn server:app
-      ls -R
-      echo "Listing complete — should see src/server.py"
+    startCommand: gunicorn src.server:app

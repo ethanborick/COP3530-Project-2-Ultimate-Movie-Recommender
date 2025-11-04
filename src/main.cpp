@@ -10,11 +10,21 @@ using namespace std;
 
 int main(int argc, char* argv[]) {
 
-    ifstream file("static/ml-latest-small/moviedata.csv");
-    if (!file.is_open()) {  //this was for debugging, can probably delete now
-        cout << "Error: Could not open moviedata.csv" << endl;
+    if (argc < 4) {
+        cout << "Usage: ./program <csv_path> <movie_name> <traversal>" << endl;
         return 1;
     }
+
+    string csv_path = argv[1];
+    string input = argv[2];
+    string traversal = argv[3];
+
+    ifstream file(csv_path);
+    if (!file.is_open()) {
+        cout << "Error: Could not open " << csv_path << endl;
+        return 1;
+    }
+
     string line;
     map<string, MovieNode*> rating_counts;
     while (getline(file, line)) {
@@ -64,10 +74,6 @@ int main(int argc, char* argv[]) {
     // testing bfs
     //graph.bfs(rating_counts["Toy Story (1995)"], rating_counts["Mission: Impossible (1996)"]);
     //graph.dfs(rating_counts["Toy Story (1995)"], rating_counts["Mission: Impossible (1996)"]);
-
-    //frontend implementation
-    string input = argv[1];
-    string traversal = argv[2];
 
     if (traversal == "breadth") {
         graph.bfs(rating_counts[input], rating_counts["Mission: Impossible (1996)"]);

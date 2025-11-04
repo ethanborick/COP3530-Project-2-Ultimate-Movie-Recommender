@@ -7,4 +7,5 @@ services:
       g++ -std=c++17 src/main.cpp -o src/program
       chmod +x src/program
       ls -l src/
+      echo "Build complete!"
     startCommand: gunicorn src.server:app

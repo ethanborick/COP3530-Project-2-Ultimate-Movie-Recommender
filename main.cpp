@@ -14,9 +14,9 @@ int main(int argc, char* argv[]) {
     string input = argv[2];
     string traversal = argv[3];
 
-    ifstream file("static/ml-latest-small/moviedata.csv");
+    ifstream file("static/moviedata.csv");
     if (!file.is_open()) {
-        cout << "Error: Could not open " << csv_path << endl;
+        cout << "Error: Could not open" << endl;
         return 1;
     }
 

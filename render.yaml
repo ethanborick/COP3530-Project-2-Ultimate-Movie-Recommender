@@ -2,6 +2,7 @@ services:
   - type: web
     name: movie-flask
     env: python
+    workingDirectory: /opt/render/project  # Use root
     buildCommand: |
       pip install -r requirements.txt
       g++ -std=c++17 main.cpp -o program

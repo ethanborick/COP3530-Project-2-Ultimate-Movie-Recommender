@@ -5,8 +5,6 @@ import os
 app = Flask(__name__)
 app.secret_key = "wowAkey"
 
-CSV_PATH = os.path.join(os.path.dirname(os.path.abspath(__file__)), "static", "ml-latest-small", "moviedata.csv")
-
 @app.route("/", methods=["GET", "POST"])
 def home():
     output = ""
@@ -20,6 +18,7 @@ def home():
         exe_path = os.path.join(os.path.dirname(os.path.abspath(__file__)), "program")
         if os.name == "nt":
             exe_path += ".exe"
+
         print("Executable exists:", os.path.exists(exe_path))
         print("Exe path:", exe_path)
 
@@ -34,7 +33,7 @@ def home():
             print("Executable exists:", os.path.exists(exe_path))
             print("Exe path:", exe_path)
             result = subprocess.run(
-                [exe_path, CSV_PATH, user_input, traversal],
+                [exe_path, user_input, traversal],
                 text=True,
                 capture_output=True
             )

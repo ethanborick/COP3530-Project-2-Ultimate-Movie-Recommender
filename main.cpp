@@ -10,16 +10,11 @@ using namespace std;
 
 int main(int argc, char* argv[]) {
 
-    if (argc < 4) {
-        cout << "Usage: ./program <csv_path> <movie_name> <traversal>" << endl;
-        return 1;
-    }
-
-    string csv_path = argv[1];
+    //for frontend
     string input = argv[2];
     string traversal = argv[3];
 
-    ifstream file(csv_path);
+    ifstream file("static/ml-latest-small/moviedata.csv");
     if (!file.is_open()) {
         cout << "Error: Could not open " << csv_path << endl;
         return 1;

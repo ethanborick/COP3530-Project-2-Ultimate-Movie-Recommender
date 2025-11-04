@@ -11,8 +11,8 @@ using namespace std;
 int main(int argc, char* argv[]) {
 
     //for frontend
-    string input = argv[2];
-    string traversal = argv[3];
+    string input = argv[1];
+    string traversal = argv[2];
 
     ifstream file("static/moviedata.csv");
     if (!file.is_open()) {
